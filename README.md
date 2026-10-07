@@ -5,7 +5,7 @@
 
 
 Skriven av Claude AI
-1. Segmentering av nätverket
+### Segmentering av nätverket
 
 IPv4-adressplan och privat nätverk med subnät
 Ni ska bestämma hur adresserna fördelas och sedan bygga det i molnplattformen (t.ex. ett VPC/VNet med flera subnät). Planen ska visa vilket adressintervall (CIDR) varje subnät får, t.ex. ett för webbservrar, ett för databaser, ett för förvaltning och ett för logg. Tänk på att lämna utrymme för tillväxt.
@@ -24,7 +24,7 @@ Linux egna medel på servrarna (nftables, iptables eller ufw)
 Omkörbart testskript
 Ett skript (t.ex. bash eller Python) som automatiskt testar att regelverket fungerar: tillåtna flöden går igenom och förbjudna flöden blockeras. Det ska gå att köra om när som helst, till exempel efter en ändring, och ge ett tydligt resultat (godkänt/underkänt per test).
 
-2. Loggning och detektion
+### Loggning och detektion
 
 Insamling till gemensam loggserver
 Ni väljer ut relevanta loggkällor (t.ex. auth-loggar, brandväggsloggar, systemloggar, applikationsloggar, molnplattformens flödesloggar) och skickar dem till en central loggserver (t.ex. via rsyslog, Filebeat eller liknande till en SIEM som Wazuh eller Elastic). Motivera varför just de källorna valdes.
@@ -41,7 +41,7 @@ bevarandetid och backup
 Detektioner och playbooks
 Ni skriver regler som larmar vid definierade händelser, t.ex. upprepade misslyckade inloggningar, en blockerad trafikflöde som bryter mot zonmodellen, eller ny användare som skapas. Varje detektion får en playbook: en kort instruktion för vad den som tar emot larmet ska göra (bedöm, avgränsa, åtgärda, eskalera).
 
-3. Härdning
+### Härdning
 
 Mandatory Access Control (MAC)
 Ni aktiverar SELinux eller AppArmor på servrarna, i enforcing-läge.
@@ -52,7 +52,7 @@ Ni väljer en tjänst (ni kan skriva en enkel egen) och skapar en säkerhetsprof
 Dokumentation
 Ni dokumenterar konfigurationen så att någon annan kan återskapa och förstå den: vad som aktiverats, profilens innehåll och varför.
 
-4. Incidentutredning och beslutsunderlag
+### Incidentutredning och beslutsunderlag
 
 Utredning i den egna miljön
 Ni genomför (eller simulerar) en incident, t.ex. ett intrångsförsök eller en misstänkt sidorörelse mellan zoner, och utreder den med hjälp av era loggar och detektioner. Beskriv förloppet: vad hände, hur upptäcktes det, vad visade loggarna, vad gjordes.
