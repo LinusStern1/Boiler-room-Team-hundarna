@@ -7,3 +7,4 @@
 - Presentatör: Simon (Mr president)
 - Kunden: Ibrahim
 - Facilitator: Albin
+- Projektbräda & Dokumentation: Momo
