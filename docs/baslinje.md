@@ -4,7 +4,7 @@
 ```bash
 sudo timeout 1m tcpdump -i any -nn -w /tmp/baslinje.pcap
 ```
-Kör tcpdump i 1 minute och använd interface ´any´ för att få all trafik i systemet.
+Kör tcpdump i 1 minute och använd interface `any` för att få all trafik i systemet.
 
 
 ### Flöde
