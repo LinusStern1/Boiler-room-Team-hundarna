@@ -1,6 +1,4 @@
 # Grundregler för "Hundarna"
-I detta team respekterar vi varandra och låter varandras idéer flöda. Ingen idé är dum, och det finns inga dåliga frågor. Se till att alla mår bra, om inte stäm av med varandra och se hur vi kan underlätta för varandra.
-=======
 - I detta team respekterar vi varandra och låter varandras idéer flöda.
 - Ingen idé är dum, och det finns inga dåliga frågor. 
 - Se till att alla mår bra, om inte stäm av med varandra och se hur vi kan underlätta för varandra.
@@ -18,8 +16,6 @@ Om någon skulle bli försenad eller sjuk, meddelar vi varandra genom slack elle
 
 # Övrigt
 
-# AI-Usage
-=======
 # AI-Usage
 - Strukturerat upp repot.
 - Använt AI till att göra en mall och skapa förståelse.
