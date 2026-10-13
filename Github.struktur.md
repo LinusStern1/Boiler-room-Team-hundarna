@@ -18,4 +18,5 @@ Om någon skulle bli försenad eller sjuk, meddelar vi varandra genom slack elle
 
 # AI-Usage
 - Strukturerat upp repot.
-- Använt AI till att göra en mall.
+- Använt AI till att göra en mall och skapa förståelse.
+- Hitta filter till wireshark.
