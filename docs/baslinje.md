@@ -1,3 +1,13 @@
+# Trafikbaslinjen
+
+### Belägg
+```bash
+sudo timeout 1m tcpdump -i any -nn -w /tmp/baslinje.pcap
+```
+Kör tcpdump i 1 minute och använd interface ´any´ för att få all trafik i systemet.
+
+
+### Flöde
  | källa             | destination     | port  | protokoll      | riktning             | frekvens  |
  |-------------------|-----------------|-------|----------------|----------------------|-----------|
  | 172.20.1.118      | 172.20.1.2      | 22    | SSH            | lab till jump server | 72 gånger |
