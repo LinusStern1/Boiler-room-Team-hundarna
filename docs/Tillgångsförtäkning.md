@@ -1,4 +1,4 @@
 | Namn | Roll | Adress | Tjänst | Belägg |
 |:---|:---|:---|:---|:---|
-| Central Server | Tar hand om trafik data och loggar tafik | 192.168.1.1 (Central server har oftast minsta adress och den är altid statisk)| UDP/TCP portar för Syslog | Stjärntopologi |
-|  |  ||||
+| `jump.sec.chas-lab.dev` | Hoppserver | 172.20.1.2 | SSH TCP | SSH hopp |
+| Elev-18 | Labbmiljö | 172.20.1.118 | SSH TCP | `ip -br a` |
