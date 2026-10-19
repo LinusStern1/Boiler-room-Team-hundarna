@@ -1,4 +1,4 @@
-# Flödestabell – exempel (workshop 2)
+# Flödestabell
 
 | Rad | Källzon | Målzon | Protokoll | Port | Riktning | Motivering (verksamhetsfunktion) | Filtreras var |
 |---|---|---|---|---|---|---|---|
