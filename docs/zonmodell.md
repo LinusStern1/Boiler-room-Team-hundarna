@@ -1,7 +1,5 @@
 # Flödestabell – exempel (workshop 2)
 
-Exemplet bygger på den platta miljön från U3.1. Teamets egen tabell ska utgå från teamets zoner och baslinjen från vecka 1.
-
 | Rad | Källzon | Målzon | Protokoll | Port | Riktning | Motivering (verksamhetsfunktion) | Filtreras var |
 |---|---|---|---|---|---|---|---|
 | 1 | Internet | Webbzon (10.40.1.10) | tcp | 443 | Inkommande | Kunderna når portalen | Molnplattform |
