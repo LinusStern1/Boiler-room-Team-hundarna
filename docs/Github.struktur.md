@@ -4,6 +4,8 @@
 - Se till att alla mår bra, om inte stäm av med varandra och se hur vi kan underlätta för varandra.
 - Arbetar i enskild branch.
 
+Alla jobbar i sin branch och endast Ibrahim ska merge alla brancher till main.
+
 # Arbetsfördelning
 - Linus: Github repo struktur
 - Simon: Tillgångsförtäckning
