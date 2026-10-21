@@ -53,3 +53,7 @@ sed -i \
 ```
 
 Den fullständiga listan finns på https://emudhra.we-have-a-problem.com/#developers.
+
+## Källor
+- https://blog.cloudflare.com/emudhra-certificate-compromise/
+- https://emudhra.we-have-a-problem.com/#developers
