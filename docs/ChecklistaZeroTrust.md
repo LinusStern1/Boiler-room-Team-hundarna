@@ -6,7 +6,7 @@ Underlag: NIST SP 800-207, *Zero Trust Architecture*, avsnitt 2.1 (de sju princi
 
 | # | Princip (NIST SP 800-207) | Kontrollfråga | Svar | Bevis |
 |---|---|---|---|---|
-| 1 | Alla data- och tjänsteresurser räknas som resurser | Har vi en förteckning över alla resurser (servrar, tjänster, data) som ska skyddas, inte bara över nät och subnät? | Ja | [Baslinje](docs/baslinje.md)| 
+| 1 | Alla data- och tjänsteresurser räknas som resurser | Har vi en förteckning över alla resurser (servrar, tjänster, data) som ska skyddas, inte bara över nät och subnät? | Ja | [Baslinje](baslinje.md)| 
 | 2 | All kommunikation skyddas oavsett nätplats | Är trafiken krypterad och autentiserad även inom samma segment? |Delvis  |ssh.nyckeln  |
 | 3 | Åtkomst ges per session | Ges åtkomst per anslutning, eller räcker en tidigare inloggning eller att man sitter i ett öppet segment? | delvis |ssh är presetion men vet inte om den loggas ut atumatiskt, ''Operation not permitted'' (you must be root)  |
 | 4 | Åtkomst styrs av dynamisk policy | Tas beslutet utifrån identitet, enhetens tillstånd och sammanhang, eller bara utifrån käll-IP? |nej  |vi har inte privilege |
