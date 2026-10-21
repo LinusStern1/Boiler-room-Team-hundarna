@@ -1,6 +1,9 @@
-| Namn | Roll | Adress (IP) | Tjänster | (Protokoll/portar)  Belägg
-| :--- | :--- | :--- | :--- | :--- |
-| **Webbserver-01** | Hostar projektets publika webbplats och testmiljö. | 10.10.10.10 | HTTP (80), HTTPS (443), SSH (22) | Verifierat via nätverksfångst och kommandot `ip a`. |
-| **App-server-01** | Hanterar affärslogik och backend-kopplingar. | 10.10.20.10 | TCP (8080), SSH (22) | Dokumenterat i nätverksarkitekturen. |
-| **Databas-01** | Lagrar användardata och systeminformation. | 10.10.30.10 | PostgreSQL (5432) | Fångat via konfigurationsfiler och testskript. |
-| **Loggserver-01** | Samlar in och säkrar centraliserade loggar (SIEM). | 10.10.40.10 | Syslog (514/TCP/UDP), TLS (1514) | Verifierat via `rsyslog`-konfiguration. |
+# Tillgångsförteckning
+| Namn | Roll | Adress | Tjänst | Belägg |
+|:---|:---|:---|:---|:---|
+| `jump.sec.chas-lab.dev` | Hoppserver | 172.20.1.2 | SSH TCP | `ss -tnp` SSH hopp |
+| Elev-18 | Labbmiljö | 172.20.1.118 | SSH TCP | `ip -br a` |
+### Kommentar
+- Elev-18 labbmiljö ip adress är på `eth1` på port `32`
+- Elev-18 har även adresser `eth0` `178.105.110.241` på port `32` och `lo` `127.0.0.1` på port `8`.
+- `ss -tuln` visar flera okända adresser i labbmiljö, en hel adress koplad till port `323`. Adressen är koplad till en tjänst som har hand om Tid syncronisering. (`chronyd`)

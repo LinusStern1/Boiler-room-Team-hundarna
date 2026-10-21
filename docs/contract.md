@@ -1,5 +1,5 @@
 # Contract
-- Ambitionsnivå: Minimum? Prototyp nivå (kill your darlings)
+- Ambitionsnivå: Gör så gott vi kan
 - kontakt: Slack
 
 ## Roles
