@@ -33,3 +33,35 @@
 | Drift och administration | Alla nät | Administration |
 | Alla nät | Logg och övervakning | Loggning |
 | Gäst och besök | (endast internet) | Isolerat från interna nät |
+
+
+### **Exempel på en komplett Flödestabell**
+
+
+| ID                                       | Flödesbeskrivning       | Källzon (Source) | Målzon (Destination)     | Protokoll | Port / Tjänst         | Initiator / Riktning | Syfte & Kommentar                                       |
+| :---                                     | :---                    | :---             | :---                     | :---      | :---                  | :---                 | :---                                                    |
+| **Applikationsflöden (Pilar i skissen)** |
+| **APP-01**                               | Webbanvändning          | Client_Zone      | DMZ_Zone                 | TCP       | 443 (HTTPS)           | Client → DMZ         | Slutanvändare surfar till webbapplikationen.            |
+| **APP-02**                               | Databasfråga            | DMZ_Zone         | Database_Zone            | TCP       | 5432 (PostgreSQL)     | DMZ → Database       | Webbservren hämtar data från databasen.                 |
+| **Infrastruktur- & Stödtjänstflöden**    |
+| **INF-01**                               | Namnuppslagning (DNS)   | Alla zoner       | Infra_Zone               | UDP/TCP   | 53 (DNS)              | Alla → Infra         | Alla enheter behöver kunna slå upp domännamn.           |
+| **INF-02**                               | Tidssynkronisering      | Alla zoner       | Infra_Zone               | UDP       | 123 (NTP)             | Alla → Infra         | Klocksynk för loggar och kerberos-autentisering.        |
+| **INF-03**                               | Paket- & OS-uppdatering | Alla zoner       | Infra_Zone (WSUS/Mirror) | TCP       | 80 / 443 / 8530       | Alla → Infra         | Hämtning av säkerhetsuppdateringar internt.             |
+| **INF-04**                               | Loggleverans (SIEM)     | Alla zoner       | Mgmt_Zone (SIEM)         | UDP/TCP   | 514 (Syslog) / 5044   | Alla → Mgmt          | Enheter skickar händelseloggar till central loggserver. |
+| **INF-05**                               | Admin via Jump-host     | Mgmt_Zone (Jump) | Alla zoner               | TCP       | 22 (SSH) / 3389 (RDP) | Jump → Alla          | Administratörer ansluter säkert via en Jump-box.        |
+
+
+## 4. Hur du ska tänka (Metodik)
+
+När du sätter dig ned för att göra detta, följ denna checklista steg för steg:
+
+1. **Definiera Zonerna:** Gruppera dina servrar och enheter efter roll och risknivå. Skapa inte för många zoner i början, håll det tydligt (3–6 zoner räcker ofta gott).
+2. **Följ "Initiator-regeln":** Fråga alltid: *Vem tar första kontakten?* Om en apparat i zon A pratar med zon B för att skicka en logg, så är källzonen A och målzonen B. Svarstrafiken hanteras automatiskt.
+3. **Minsta möjliga behörighet (Least Privilege):** Öppna **aldrig** hela zoner mot varandra (t.ex. `ANY` port från DMZ till Server). Specificera alltid exakt port och protokoll.
+4. **Glöm inte "Osynliga" infrastrukturflöden:** En server fungerar sällan helt isolerad. Ställ dig frågorna:
+   * *Hur får maskinen rätt klocktid?* (NTP - port 123)
+   * *Hur vet den vad IP-adressen till databasen är?* (DNS - port 53)
+   * *Hur installerar den säkerhetsuppdateringar?* (HTTP/HTTPS till t.ex. WSUS eller lokal mirror)
+   * *Var hamnar händelseloggarna?* (Syslog/SIEM - port 514 / 5044)
+   * *Hur ska IT-personalen logga in och underhålla maskinen utan att gå direkt från internet?* (Jump-box via SSH/RDP - port 22/3389)
+
