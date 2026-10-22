@@ -35,20 +35,21 @@
 | Gäst och besök | (endast internet) | Isolerat från interna nät |
 
 
-### **Exempel på en komplett Flödestabell**
+### **Flödestabell**
 
 
-| ID                                       | Flödesbeskrivning       | Källzon (Source) | Målzon (Destination)     | Protokoll | Port / Tjänst         | Initiator / Riktning | Syfte & Kommentar                                       |
-| :---                                     | :---                    | :---             | :---                     | :---      | :---                  | :---                 | :---                                                    |
+| ID | Flödesbeskrivning | Källzon (Source) | Målzon (Destination) | Protokoll | Port / Tjänst | Initiator / Riktning | Syfte & Kommentar |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Applikationsflöden (Pilar i skissen)** |
-| **APP-01**                               | Webbanvändning          | Client_Zone      | DMZ_Zone                 | TCP       | 443 (HTTPS)           | Client → DMZ         | Slutanvändare surfar till webbapplikationen.            |
-| **APP-02**                               | Databasfråga            | DMZ_Zone         | Database_Zone            | TCP       | 5432 (PostgreSQL)     | DMZ → Database       | Webbservren hämtar data från databasen.                 |
-| **Infrastruktur- & Stödtjänstflöden**    |
-| **INF-01**                               | Namnuppslagning (DNS)   | Alla zoner       | Infra_Zone               | UDP/TCP   | 53 (DNS)              | Alla → Infra         | Alla enheter behöver kunna slå upp domännamn.           |
-| **INF-02**                               | Tidssynkronisering      | Alla zoner       | Infra_Zone               | UDP       | 123 (NTP)             | Alla → Infra         | Klocksynk för loggar och kerberos-autentisering.        |
-| **INF-03**                               | Paket- & OS-uppdatering | Alla zoner       | Infra_Zone (WSUS/Mirror) | TCP       | 80 / 443 / 8530       | Alla → Infra         | Hämtning av säkerhetsuppdateringar internt.             |
-| **INF-04**                               | Loggleverans (SIEM)     | Alla zoner       | Mgmt_Zone (SIEM)         | UDP/TCP   | 514 (Syslog) / 5044   | Alla → Mgmt          | Enheter skickar händelseloggar till central loggserver. |
-| **INF-05**                               | Admin via Jump-host     | Mgmt_Zone (Jump) | Alla zoner               | TCP       | 22 (SSH) / 3389 (RDP) | Jump → Alla          | Administratörer ansluter säkert via en Jump-box.        |
+| **APP-01** | Webbanvändning | Client_Zone 10.40.0.0/24 | DMZ_Zone 10.40.1.120/29 | TCP | 443 (HTTPS) | Client → DMZ | Slutanvändare surfar till webbapplikationen. |
+| **APP-02** | Databasfråga | DMZ_Zone 10.40.1.120/29 | Database_Zone 10.40.1.112/29 | TCP | 5432 (PostgreSQL) | DMZ → Database | Webbservren hämtar data från databasen. |
+| **APP-02** | DatabasSvar | DMZ_Zone 10.40.1.120/29 | Client_Zone 10.40.0.0/24 | TCP | 443 (HTTPS) | DMZ → Client| webbservern svarar till användaren |
+| **Infrastruktur- & Stödtjänstflöden** |
+| **INF-01** | Namnuppslagning (DNS) | Alla zoner | Infra_Zone | UDP/TCP | 53 (DNS) | Alla → Infra | Alla enheter behöver kunna slå upp domännamn. |
+| **INF-02** | Tidssynkronisering | Alla zoner | Infra_Zone | UDP | 323 (NTP) | Alla → Infra | Klocksynk för loggar och kerberos-autentisering. |
+| **INF-03** | Paket- & OS-uppdatering | Alla zoner | Infra_Zone (WSUS/Mirror) | TCP | 80 / 443 | Alla → Infra | Hämtning av säkerhetsuppdateringar internt. |
+| **INF-04** | Loggleverans (SIEM) | Alla zoner | Mgmt_Zone (SIEM) | UDP/TCP | 514 (Syslog) / 5044 | Alla → Mgmt | Enheter skickar händelseloggar till central loggserver. |
+| **INF-05** | Admin via Jump-host | Mgmt_Zone (Jump) | Alla zoner | TCP | 22 (SSH) / 3389 (RDP) | Jump → Alla | Administratörer ansluter säkert via en Jump-box. |
 
 
 ## 4. Hur du ska tänka (Metodik)
@@ -61,7 +62,7 @@ När du sätter dig ned för att göra detta, följ denna checklista steg för s
 4. **Glöm inte "Osynliga" infrastrukturflöden:** En server fungerar sällan helt isolerad. Ställ dig frågorna:
    * *Hur får maskinen rätt klocktid?* (NTP - port 123)
    * *Hur vet den vad IP-adressen till databasen är?* (DNS - port 53)
-   * *Hur installerar den säkerhetsuppdateringar?* (HTTP/HTTPS till t.ex. WSUS eller lokal mirror)
+   * *Hur installerar den säkerhetsuppdateringar?* (HTTP/HTTPS till t.ex. lokal mirror)
    * *Var hamnar händelseloggarna?* (Syslog/SIEM - port 514 / 5044)
    * *Hur ska IT-personalen logga in och underhålla maskinen utan att gå direkt från internet?* (Jump-box via SSH/RDP - port 22/3389)
 
