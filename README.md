@@ -1,24 +1,16 @@
-# Grundregler för "Hundarna"
-- I detta team respekterar vi varandra och låter varandras idéer flöda.
-- Ingen idé är dum, och det finns inga dåliga frågor. 
-- Se till att alla mår bra, om inte stäm av med varandra och se hur vi kan underlätta för varandra.
-- Arbetar i enskild branch.
+# Repostruktur
+.
+├── baslinje.pcap
+├── docs
+│   ├── Adressplan.md
+│   ├── baslinje.md
+│   ├── ChecklistaZeroTrust.md
+│   ├── contract.md
+│   ├── Tillgångsförtäkning.md
+│   └── Zoner.md
+├── eMudhra
+│   ├── Ibrahim.md
+│   ├── Linus.md
+│   └── Simon.md
+└── README.md
 
-Alla jobbar i sin branch och endast Ibrahim ska merge alla brancher till main.
-
-# Arbetsfördelning
-- Linus: Github repo struktur
-- Simon: Tillgångsförtäckning
-- Ibrahim: Baslinje.
-
-- Vi hjälper varandra om vi sitter fast, och har ett öppet mindset.
-
-# Tid
-Om någon skulle bli försenad eller sjuk, meddelar vi varandra genom slack eller discord, och detta är en ömsesidig respekt vi visar varandra för att det ska bli så bra som möjligt för oss.
-
-# Övrigt
-
-# AI-Usage
-- Strukturerat upp repot.
-- Använt AI till att göra en mall och skapa förståelse.
-- Hitta filter till wireshark.
