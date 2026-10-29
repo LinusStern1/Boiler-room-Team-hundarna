@@ -57,8 +57,8 @@
 | ID | Flödesbeskrivning | Källzon (Source) | Målzon (Destination) | Protokoll | Port / Tjänst | Initiator / Riktning | Syfte & Kommentar |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | F1 | Internet > Ibrahim (Webb) | Internet (0.0.0.0/0) | Ibrahim Webb 10.40.3.65 | tcp | 443 / HTTPS | Internet > Webb (in) | Publik webbtjänst. Filtreras i moln och på värd |
-| F2 | Simon (Client) > Ibrahim (Webb) | Simon Client 10.40.3.2 | Ibrahim Webb 10.40.3.65 | tcp | 443 / HTTPS | Client > Webb (ut på Client, in på Webb) | Användare når webben. Endast värdbaserat filter |
-| F3 | Ibrahim (Webb) > Linus (App) | Ibrahim Webb 10.40.3.65 | Linus App 10.40.3.129 | tcp | 8080 / App-API | Webb > App (ut på Webb, in på App) | Webben anropar applikationen. Endast värdbaserat filter |
+| F2 | Simon (Client) > Ibrahim (Webb) | Simon Client 10.40.3.2 | Ibrahim Webb 10.40.3.65 | tcp | 443 / HTTPS | Client > Webb (ut på Client, in på Webb) | Användare når webben. |
+| F3 | Ibrahim (Webb) > Linus (App) | Ibrahim Webb 10.40.3.65 | Linus App 10.40.3.129 | tcp | 8080 / App-API | Webb > App (ut på Webb, in på App) | Webben anropar applikationen. |
 | F4 | Linus (App) > Mohammed (Databas) | Linus App 10.40.3.129 | Mohammed Databas 10.40.3.193 | tcp | 5432 / PostgreSQL | App > Databas (ut på App, in på Databas) | Endast appservern får nå databasen. |
 
 ## 4. Hur du ska tänka (Metodik)
