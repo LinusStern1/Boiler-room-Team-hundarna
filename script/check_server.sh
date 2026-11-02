@@ -25,7 +25,7 @@ check() {
 case "$current_ip" in
 	"$simon_ip")
 		check "Simon" "Ibrahim" "$ibrahim_ip" "$simon_ip"
-		check "Simon" "Linus" "$linus_ip" "$linus_ip"
+		check "Simon" "Linus" "$linus_ip" "$linus_port"
 		check "Simon" "Mohammed" "$mohammed_ip" "$mohammed_port"
 		;;
 	"$ibrahim_ip")
