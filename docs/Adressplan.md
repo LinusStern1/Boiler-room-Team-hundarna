@@ -52,6 +52,23 @@
 | **INF-05** | Admin via Jump-host | Mgmt_Zone (Jump) | Alla zoner | TCP | 22 (SSH) / 3389 (RDP) | Jump → Alla | Administratörer ansluter säkert via en Jump-box. |
 
 
+# Praktisk Tabell
+
+| ID | Flödesbeskrivning | Källzon (Source) | Målzon (Destination) | Protokoll | Port / Tjänst | Initiator / Riktning | Syfte & Kommentar |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| F1 | Internet > Ibrahim (Webb) | Internet (0.0.0.0/0) | Ibrahim Webb 10.40.3.65 | tcp | 443 / HTTPS | Internet > Webb (in) | Publik webbtjänst. Filtreras i moln och på värd |
+| F2 | Simon (Client) > Ibrahim (Webb) | Simon Client 10.40.3.2 | Ibrahim Webb 10.40.3.65 | tcp | 443 / HTTPS | Client > Webb (ut på Client, in på Webb) | Användare når webben. |
+| F3 | Ibrahim (Webb) > Linus (App) | Ibrahim Webb 10.40.3.65 | Linus App 10.40.3.129 | tcp | 8080 / App-API | Webb > App (ut på Webb, in på App) | Webben anropar applikationen. |
+| F4 | Linus (App) > Mohammed (Databas) | Linus App 10.40.3.129 | Mohammed Databas 10.40.3.193 | tcp | 5432 / PostgreSQL | App > Databas (ut på App, in på Databas) | Endast appservern får nå databasen. |
+| D1 | Jump > SSH | 172.20.1.2 | server | tcp | 22 | Från Jump till olika servrar | För studie kontroll |
+| D2 | CTF > SSH | 172.20.1.10 | server | tcp | 22 | CTF kontroller | För studie kontroll |
+| D3 | DNS | Server | Hetzners 185.12.64.1 och 185.12.64.2 | udp, tcp | 53 / DNS | Server > Resolver (ut) | Namnuppslag. Molnbrandväggen släpper alltid dessa, men värden måste släppa dem själv. |
+| D4 | Tidssynk | Server | Internet (0.0.0.0/0) | udp | 123 / NTP | Server > Internet (ut) | chrony. ligger i molnbrandäggen |
+| D5 | Logg | Server | Loggserver 172.20.1.58 | tcp | 514 / syslog | Server > Logg (ut) | Ersätts av D8 |
+| D6 | DHCP-förnyelse | Server | DHCP-server (172.31.1.1 på eth0, 172.20.0.1 på eth1, 10.40.3.1 på eth2) | udp | 68 > 67 / DHCP | Server > DHCP (ut) | Utan regeln tappar servern sina adresser när lånet (24 h) går ut. |
+| D7 | Paketuppdateringar | Server | Internet utom interna nät | tcp | 443 / HTTPS (ev. 80) | Server > Internet (ut) | dnf. Kräver utgående regel i molnet också för paketuppdateringar. |
+| D8 | Logg över TLS | Server | Loggserver 172.20.1.58 | tcp | 6514 / syslog-TLS | Server > Logg (ut) | Ersätter D5. Privat nät, filtreras bara på värd. |
+
 ## 4. Hur du ska tänka (Metodik)
 
 När du sätter dig ned för att göra detta, följ denna checklista steg för steg:
