@@ -1,19 +1,37 @@
-# Repostruktur
-```bash
-├── baslinje.pcap
-├── docs
+# Boiler-room-Team-hundarna
+
+## Repostruktur
+
+<!-- TREE:START -->
+```text
+├── docs/
 │   ├── Adressplan.md
+│   ├── AI-Användning.md
 │   ├── baslinje.md
 │   ├── ChecklistaZeroTrust.md
 │   ├── contract.md
+│   ├── Github.struktur.md
+│   ├── Testing.md
 │   ├── Tillgångsförtäkning.md
 │   └── Zoner.md
-├── eMudhra
+├── eMudhra/
 │   ├── Ibrahim.md
 │   ├── Linus.md
 │   └── Simon.md
+├── baslinje.pcap
 └── README.md
 ```
+<!-- TREE:END -->
+
+## Adressplan
+
+Innehåll i [docs/Adressplan.md](docs/Adressplan.md):
+
+- [Förutsättningar](docs/Adressplan.md#förutsättningar)
+- [Tabell över adressplan](docs/Adressplan.md#tabell-över-adressplan)
+- [Nät som ska nå varandra](docs/Adressplan.md#nät-som-ska-nå-varandra)
+- [Flödestabell](docs/Adressplan.md#flödestabell)
+- [Praktisk Tabell](docs/Adressplan.md#praktisk-tabell)
 
 # Sammanfattning av projektet
 - Segmentera miljön enligt Zero Trust-principer.
