@@ -68,7 +68,8 @@
 | D6 | DHCP-förnyelse | Server | DHCP-server (172.31.1.1 på eth0, 172.20.0.1 på eth1, 10.40.3.1 på eth2) | udp | 68 > 67 / DHCP | Server > DHCP (ut) | Utan regeln tappar servern sina adresser när lånet (24 h) går ut. |
 | D7 | Paketuppdateringar | Server | Internet utom interna nät | tcp | 443 / HTTPS (ev. 80) | Server > Internet (ut) | dnf. Kräver utgående regel i molnet också för paketuppdateringar. |
 | D8 | Logg över TLS | Server | Loggserver 172.20.1.58 | tcp | 6514 / syslog-TLS | Server > Logg (ut) | Ersätter D5. Privat nät, filtreras bara på värd. |
-
+| D9 | CTF > SSH Kontroll | 172.20.1.10 | Server | tcp | 80 | CTF extra Kontroller | För studie kontroll |
+| D10 | CTF > Zonvakt(server) | 172.20.1.10 | Zonvakt(Server) | tcp | 75XX (där XX är elev-nummer) | Zonvakt kontroller | Zonvakt kontroller och data överförningar |
 ## 4. Hur du ska tänka (Metodik)
 
 När du sätter dig ned för att göra detta, följ denna checklista steg för steg:
