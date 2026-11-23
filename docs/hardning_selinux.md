@@ -1,7 +1,7 @@
 
 # Härdningsrapport
 
-
+Script: /script/verifiera-hardning.sh
 
 | Nr | Åtgärd | Motivering | Förväntad effekt | Hur verifierad | Skript? |
 |----|--------|------------|------------------|----------------|---------|
