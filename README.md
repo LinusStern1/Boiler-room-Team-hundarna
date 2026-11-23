@@ -10,7 +10,7 @@
 │   ├── baslinje.md
 │   ├── ChecklistaZeroTrust.md
 │   ├── contract.md
-│   ├── Github.struktur.md
+│   ├── hardning_selinux.md
 │   ├── Testing.md
 │   ├── Tillgångsförtäkning.md
 │   └── Zoner.md
@@ -18,6 +18,9 @@
 │   ├── Ibrahim.md
 │   ├── Linus.md
 │   └── Simon.md
+├── script/
+│   ├── check_server.sh
+│   └── verifiera-hardning.sh
 ├── baslinje.pcap
 └── README.md
 ```
