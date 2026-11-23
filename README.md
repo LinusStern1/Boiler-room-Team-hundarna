@@ -5,6 +5,10 @@
 <!-- TREE:START -->
 ```text
 ├── docs/
+│   ├── vecka-7-simon/
+│   │   ├── zonvakt.fc
+│   │   ├── zonvakt.if
+│   │   └── zonvakt.te
 │   ├── Adressplan.md
 │   ├── AI-Användning.md
 │   ├── baslinje.md
