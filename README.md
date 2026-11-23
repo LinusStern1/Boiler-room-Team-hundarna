@@ -3,6 +3,24 @@
 ## Repostruktur
 
 <!-- TREE:START -->
+```text
+├── docs/
+│   ├── Adressplan.md
+│   ├── AI-Användning.md
+│   ├── baslinje.md
+│   ├── ChecklistaZeroTrust.md
+│   ├── contract.md
+│   ├── Github.struktur.md
+│   ├── Testing.md
+│   ├── Tillgångsförtäkning.md
+│   └── Zoner.md
+├── eMudhra/
+│   ├── Ibrahim.md
+│   ├── Linus.md
+│   └── Simon.md
+├── baslinje.pcap
+└── README.md
+```
 <!-- TREE:END -->
 
 ## Adressplan
