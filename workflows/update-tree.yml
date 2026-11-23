@@ -1,0 +1,72 @@
+name: Update README Tree
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+
+permissions:
+  contents: write
+
+jobs:
+  update-tree:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate tree and update README
+        run: |
+          python3 - <<'EOF'
+          import os
+          from pathlib import Path
+
+          IGNORE = {'.git', '.github', 'node_modules', '__pycache__', '.venv', 'venv', '.next', 'dist', 'build'}
+
+          def make_tree(root: Path, prefix: str = ""):
+              entries = [
+                  p for p in sorted(root.iterdir(), key=lambda x: (not x.is_dir(), x.name.lower()))
+                  if p.name not in IGNORE
+              ]
+              lines = []
+              for idx, entry in enumerate(entries):
+                  connector = "└── " if idx == len(entries) - 1 else "├── "
+                  label = f"{entry.name}/" if entry.is_dir() else entry.name
+                  lines.append(f"{prefix}{connector}{label}")
+                  if entry.is_dir():
+                      extension = "    " if idx == len(entries) - 1 else "│   "
+                      lines.extend(make_tree(entry, prefix + extension))
+              return lines
+
+          tree_block = "```text\n" + "\n".join(make_tree(Path("."))) + "\n```"
+
+          readme_path = Path("README.md")
+          content = readme_path.read_text(encoding="utf-8")
+
+          start_marker = "<!-- TREE:START -->"
+          end_marker = "<!-- TREE:END -->"
+
+          if start_marker not in content or end_marker not in content:
+              raise RuntimeError("Missing TREE:START or TREE:END markers in README.md")
+
+          before, rest = content.split(start_marker, 1)
+          _, after = rest.split(end_marker, 1)
+
+          new_content = f"{before}{start_marker}\n{tree_block}\n{end_marker}{after}"
+          if new_content != content:
+              readme_path.write_text(new_content, encoding="utf-8")
+          EOF
+
+      - name: Commit and push if README changed
+        run: |
+          if git diff --quiet README.md; then
+            echo "No changes to README.md"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: update repository structure in README"
+          git push

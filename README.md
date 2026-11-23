@@ -2,24 +2,8 @@
 
 ## Repostruktur
 
-```text
-├── docs
-│   ├── Adressplan.md
-│   ├── ChecklistaZeroTrust.md
-│   ├── Testing.md
-│   ├── Tillgångsförtäkning.md
-│   ├── Zoner.md
-│   ├── baslinje.md
-│   └── contract.md
-├── eMudhra
-│   ├── Ibrahim.md
-│   ├── Linus.md
-│   └── Simon.md
-├── script
-│   └── check_server.sh
-├── README.md
-└── baslinje.pcap
-```
+<!-- TREE:START -->
+<!-- TREE:END -->
 
 ## Adressplan
 
