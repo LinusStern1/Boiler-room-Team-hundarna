@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - Simon
     paths-ignore:
       - 'README.md'
 
