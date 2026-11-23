@@ -1,0 +1,40 @@
+policy_module(zonvakt, 1.0.0)
+
+########################################
+#
+# Declarations
+#
+
+type zonvakt_t;
+type zonvakt_exec_t;
+init_daemon_domain(zonvakt_t, zonvakt_exec_t)
+
+type zonvakt_log_t;
+logging_log_file(zonvakt_log_t)
+
+########################################
+#
+# zonvakt local policy
+#
+allow zonvakt_t self:fifo_file rw_fifo_file_perms;
+allow zonvakt_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(zonvakt_t, zonvakt_log_t, zonvakt_log_t)
+manage_files_pattern(zonvakt_t, zonvakt_log_t, zonvakt_log_t)
+manage_lnk_files_pattern(zonvakt_t, zonvakt_log_t, zonvakt_log_t)
+logging_log_filetrans(zonvakt_t, zonvakt_log_t, { dir file lnk_file })
+
+domain_use_interactive_fds(zonvakt_t)
+
+files_read_etc_files(zonvakt_t)
+
+miscfiles_read_localization(zonvakt_t)
+
+allow zonvakt_t self:tcp_socket { accept bind create getattr listen setopt read write };
+
+auth_read_passwd_file(zonvakt_t)
+corecmd_mmap_bin_files(zonvakt_t)
+corenet_tcp_bind_generic_node(zonvakt_t)
+corenet_tcp_bind_generic_port(zonvakt_t)
+sssd_read_public_files(zonvakt_t)
+sssd_search_lib(zonvakt_t)
