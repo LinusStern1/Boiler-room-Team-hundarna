@@ -22,10 +22,12 @@
 
 ### Fas 2. Detektion och analys
 1. Notera larmets tid (UTC), `rule.id`, `data.srcip` och `location`.
-2. Sök: `<DQL>`, tidsfönster ___. **Förväntat:** ___.
-3. Sök utan värdfilter på källan: `<DQL>`. Berörs fler servrar eller konton?
-4. Jämför källan med flödestabellen och baslinjen. Är den en känd legitim källa?
-5. Kontrollera om något följde efter (till exempel lyckad inloggning, nytt konto, nytt program): `<DQL>`.
+2. Sök: `location: *elev-18* and rule.id: (5710 or 5712)`, tidsfönster senaste 15 minuterna.
+3. Sök utan värdfilter på källan: `data.srcip: <ip>`. Berörs fler servrar eller konton?
+4. Jämför källan med flödestabellen (D1/D2) och baslinjen (30 försök/24h är normalt). 
+   - Är den 172.20.1.2 (jump) eller 172.20.1.10 (ctf)? Då är det troligen förväntad aktivitet.
+5. Kontrollera om något följde efter: `data.srcip: <ip> and rule.id: (5715 or 40112)`.
+   - (lyckad inloggning). Larmar det, eskalera omedelbart oavsett källa.
 6. Skriv observation och slutsats i triageloggen, i skilda fält.
 
 ### Eskalera när
@@ -38,9 +40,10 @@
 - Teamet testar funktionallitet, **Så kontrollerar någon annan det:** `data.srcip: 172.20.1.2` ger inloggs försök med `invalid user ogiltigX` där (X är nummer^).
 
 ### Fas 3. Inneslutning, utrotning och återställning
-1. <Stoppa spridningen, till exempel blockera källan> `<kommando>`.
-2. <Ta bort det angriparen lämnat kvar>.
-3. <Återställ och verifiera att det fungerar> `<kommando>`.
+1. Blockera källan tillfälligt: `sudo nft insert rule inet zon in ip saddr <ip> drop comment "triage T1110"`
+   - regeln försvinner vid omladdning av zon.nft
+2. Om en inloggning lyckades: lås kontot (`sudo passwd -l <konto>`), avsluta aktiva sessioner.
+3. Verifiera: upprepa sökningen i steg 2 ovan – inga nya träffar från källan de senaste 5 minuterna.
 
 > Blockera aldrig jump (172.20.1.2) eller ctf (172.20.1.10). Då låser du ute dig eller kontrollerna.
 
