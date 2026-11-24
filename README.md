@@ -5,6 +5,8 @@
 <!-- TREE:START -->
 ```text
 ├── docs/
+│   ├── CSV/
+│   │   └── testfall.csv
 │   ├── vecka-7-simon/
 │   │   ├── zonvakt.fc
 │   │   ├── zonvakt.if
@@ -29,6 +31,7 @@
 ├── script/
 │   ├── check_server.sh
 │   ├── t1110Tester.sh
+│   ├── testfall.sh
 │   ├── txtDecoder.sh
 │   └── verifiera-hardning.sh
 ├── baslinje.pcap
