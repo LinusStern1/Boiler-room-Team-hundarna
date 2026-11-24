@@ -1,7 +1,7 @@
 id,kalla,destination,port,protokoll,riktning,forvantat,faktiskt
 F1-till,internet,10.40.3.65,443,tcp,in,oppen,
 F1-nek,internet,10.40.3.65,8080,tcp,in,tyst,
-F2-till,elev-18,10.40.3.65,443,tcp,ut,oppen,
+F2-till,elev-18,10.40.3.65,443,tcp,ut,avvisad,
 F2-nek,elev-18,10.40.3.65,8080,tcp,ut,tyst,
 F3-till,elev-23,10.40.3.129,8080,tcp,ut,oppen,
 F3-nek,elev-18,10.40.3.129,8080,tcp,ut,tyst,

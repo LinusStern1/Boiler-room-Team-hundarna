@@ -10,7 +10,6 @@ tr -d '\r' < "$fil" | tail -n +2 | while IFS=, read -r id kalla dest port proto 
   rc=$?
   case $rc in
     0)   utfall=oppen ;;
-    1)   utfall=stangd ;;
     124) utfall=tyst ;;
     *)   utfall=avvisad ;;
   esac
