@@ -14,7 +14,9 @@
 │   ├── baslinje.md
 │   ├── ChecklistaZeroTrust.md
 │   ├── contract.md
+│   ├── Detektioner.md
 │   ├── hardning_selinux.md
+│   ├── loggstrategi.md
 │   ├── Testing.md
 │   ├── Tillgångsförtäkning.md
 │   ├── Triage-Playbook.md
