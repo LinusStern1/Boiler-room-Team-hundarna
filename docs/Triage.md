@@ -74,6 +74,7 @@ Detektion: T1110 · Playbook: [Triage-Playbook.md](Triage-Playbook.md) · Fas so
 
 ## T2 – Grupp testet
 > All information här är temporär tills testet har genomförts.
+> Förslag från elev-18: Vi skriver ett skript som angriper allas servrar under 3 minuter.
 
 | Fält | Värde |
 |---|---|
