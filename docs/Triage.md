@@ -76,6 +76,14 @@ Detektion: T1110 · Playbook: [Triage-Playbook.md](Triage-Playbook.md) · Fas so
 > All information här är temporär tills testet har genomförts.
 > Förslag från elev-18: Vi skriver ett skript som angriper allas servrar under 3 minuter.
 
+
+### Test Script och funktion.
+- Test skriptet kör igenom alla servrars SSH och försöker med en brute force automatiskt. [Test Script](../script/t1110Tester.sh)
+```bash
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16; do ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new ogiltig$i@elev-XX; done
+```
+- Den enstaka linjen som kan testas manuellt från jump gör samma sak fast en server i taget.
+
 | Fält | Värde |
 |---|---|
 | Tid (UTC) | Nov 24, 2026 @ 10:00:00.000 |
