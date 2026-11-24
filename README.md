@@ -27,6 +27,7 @@
 ├── script/
 │   ├── check_server.sh
 │   ├── t1110Tester.sh
+│   ├── txtDecoder.sh
 │   └── verifiera-hardning.sh
 ├── baslinje.pcap
 └── README.md
