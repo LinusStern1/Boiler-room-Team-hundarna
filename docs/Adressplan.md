@@ -7,6 +7,13 @@
 - Nät är sorterade i storleksordning (störst först) så att de kan summeras.
 - Ingen rad utan uträkning. Alla rader är kontrollerade med `ipcalc --all`.
 
+```text
+Simon elev-18
+Linus elev-41
+Ibrahim elev-23
+Mohammed elev-31 
+```
+
 ## Tabell över adressplan
 
 | Prefix | Syfte | Adressintervall (första–sista) | Ansvarig tjänst | Reserverat utrymme | Kommentar / Uträkning |
