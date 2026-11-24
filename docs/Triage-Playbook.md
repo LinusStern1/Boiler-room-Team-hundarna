@@ -63,3 +63,4 @@
 | Version | Datum | Ändring |
 |---|---|---|
 |v1|11/20/2026|Initial|
+|v1.2|11/20/2026|Fas 2 uppdaterad|
