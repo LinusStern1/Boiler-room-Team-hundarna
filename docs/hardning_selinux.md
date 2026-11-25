@@ -36,6 +36,7 @@ exit $fel
 
 
 ## Omstarta test
+Testet har utfört i Elev-23.
 
 Innan omstart kördes skriptet `uptime -s` 2026-11-23 09:26:41
 
