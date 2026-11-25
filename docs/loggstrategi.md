@@ -30,19 +30,19 @@
 ### 3.1 Fem frågor som ska kunna besvaras
 | Nr | Fråga (tidsspann, subjekt, vad som ska fastställas) | Källor som krävs | Går att besvara idag? (Ja/Nej + ev. åtgärd) |
 | :--- | :--- | :--- | :--- |
-| **1** | *Exempel: Vem loggade in som root på elev-XX mellan kl. 02:00 och 04:00 natten till 5 november, och från vilken IP-adress?* | Autentiseringslogg (`/var/log/secure`) | Ja |
-| **2** | *Exempel: Vilka kommandon kördes med sudo av användaren student på elev-XX under de senaste 24 timmarna?* | Audit-logg (`auditd` via `audispd-plugins`) | Ja (kräver `audispd-plugins`) |
-| **3** | *Exempel: När blockerades senast ett obehörigt anslutningsförsök mot port 22 eller 6514 på elev-XX under den senaste veckan?* | Brandväggslogg (`nftables`/`firewalld`) | Ja |
-| **4** | `[Skriv er fjärde fråga med tidsspann, subjekt och vad som ska fastställas]` | `[Källa]` | `[Ja/Nej]` |
-| **5** | `[Skriv er femte fråga med tidsspann, subjekt och vad som ska fastställas]` | `[Källa]` | `[Ja/Nej]` |
+| **1** | Vem loggade in som root på elev-XX mellan kl. 02:00 och 04:00 natten till 5 november, och från vilken IP-adress? | Autentiseringslogg (`/var/log/secure`) | Ja |
+| **2** | Vilka kommandon kördes med sudo av användaren student på elev-XX under de senaste 24 timmarna? | Audit-logg (`auditd` via `audispd-plugins`) | Ja (kräver `audispd-plugins`) |
+| **3** | När blockerades senast ett obehörigt anslutningsförsök mot port 22 eller 6514 på elev-XX under den senaste veckan? | Brandväggslogg (`nftables`/`firewalld`) | Ja |
+| **4** | Vilka root-kommandon kördes av en inloggad användare på elev-XX den senaste veckan, och av vilket auid? | Audit-logg | Ja |
+| **5** | Nådde en viss källa (t.ex. 172.20.1.10) fram till loggservern med TLS-krypterad trafik, eller gick något i klartext på port 514? | rsyslog-konfiguration & brandväggslogg | Ja |
 
 ### 3.2 Strukna källor (Skickas ej centralt)
 *Källor från inventeringen som vi aktivt valt bort för att minska brus och lagringsbehov.*
 
 | Struken källa | Varför ingen fråga behöver den |
 | :--- | :--- |
-| *Exempel: `/var/log/maillog` (Posthantering)* | *Servern agerar inte e-postserver och ingen av våra fem säkerhetsfrågor rör lokal e-post.* |
-| `[Källa 2]` | `[Motivering]` |
+| /var/log/maillog (Posthantering) | Servern agerar inte e-postserver och ingen av våra fem säkerhetsfrågor rör lokal e-post. |
+| /var/log/cron (time-based job scheduler.) | Inga av våra säkerhetsfrågor rör tidslaggda jobb och fokuset ligger på aktivt skydd. |
 
 ---
 
@@ -56,10 +56,10 @@
 
 | Identifierare | Ungefärlig tid (UTC) | Värdnamn | Källa | Söksträng (`loggsök`) | Hittad centralt? Avvikelse? |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `[t.ex. U5.1 / sparXXXX]` | `2026-11-XXTXX:XX:XXZ` | `elev-XX` | `user.notice` (`logger`) | `loggsök sparXXXX` | Ja, mottagen över TLS utan avvikelse. |
-| `[t.ex. Auth-test]` | `2026-11-XXTXX:XX:XXZ` | `elev-XX` | `sshd` (`/var/log/secure`) | `loggsök [sökord]` | `[Ja/Nej + ev. avvikelse]` |
-| `[t.ex. FW-test]` | `2026-11-XXTXX:XX:XXZ` | `elev-XX` | `nftables` | `loggsök [sökord]` | `[Ja/Nej + ev. avvikelse]` |
-| `[t.ex. Audit-test]` | `2026-11-XXTXX:XX:XXZ` | `elev-XX` | `auditd` | `loggsök [sökord]` | `[Ja/Nej + ev. avvikelse]` |
+| U5.1 / sparXXXX | 2026-11-25T10:29:39.017Z | elev-18 | logger | loggsök spar4... | Ja, mottagen över TLS utan avvikelse. |
+| Auth-test | 2026-11-25T07:52:58.203Z | elev-18 | elev-18 sshd-session[11003] | loggsök giltigTest12 | Ja + T1110 Test |
+| Brandvägg | 2026-11-25T09:18:09.705Z | elev-18 | ZON-IN-DROP, nftables | loggsök ZON-IN-DROP | Ja, mottagen över TLS utan avvikelse. |
+| Audit-test | 2026-11-25T10:16:49.170Z | elev-18 | auditd | loggsök logtest-elev18 | Ja, mottagen över TLS utan avvikelse. |
 
 ---
 
@@ -67,34 +67,73 @@
 *Varje punkt nedan ska styrkas med konkreta belägg (kommandon, konfigurationsrader eller rättighetsutskrifter från era servrar).*
 
 ### 5.1 Vem kan ändra eller radera loggen lokalt?
-* **Beskrivning:** `[Vilka konton/grupper har skriv- och raderingsrättigheter till /var/log/, journalen och rsyslog-konfigurationen?]`
-* **Belägg:** 
+* **Beskrivning:** Vilka konton/grupper har skriv och raderingsrättigheter till /var/log/, journalen och rsyslog-konfigurationen?
+* **Belägg elev-XX server:** `sudo ls -la /var/log/audit/audit.log`
   ```text
-  [Klistra in utskrift från t.ex. ls -la /var/log/secure /var/log/audit/audit.log /etc/rsyslog.d/]
+  -rw-------. 1 root root 6260016 Nov 25 09:26 /var/log/audit/audit.log
   ```
 
 ### 5.2 Vem kan ändra eller radera loggen centralt?
-* **Beskrivning:** `[Har ni konto på log.sec.chas-lab.dev? Hur sorterar loggservern loggar (IP-adress vs värdnamn) och vad innebär det för integriteten? Vad skyddar TLS mot respektive inte mot (RFC 5425)?]`
-* **Belägg:** 
+* **Beskrivning:** Vi har inget konto på `log.sec.chas-lab.dev` och kan därför inte logga in på servern. Vår enda åtkomst är läsning av våra egna rader via `loggsök` på jump-servern. Vi vet inte vilka administratörskonton som finns på loggservern eller vem av kursens personal som kan ändra/radera data där det ligger utanför vår synlighet.
+* **Belägg:** `ssh log.sec.chas-lab.dev`,`logger -p user.notice -t sparbarhet "jag-later-som-elev-99 test-sortering-elev18"`
   ```text
-  [Klistra in t.ex. utdrag från loggsök som visar mottagningstid, TLS och käll-IP, samt hänvisning till avsaknad av SSH/skalkonto på 172.20.1.58]
+  Host key verification failed.
+  mottaget 2026-11-25T10:23:33.205Z TLS      | 2026-11-25T10:23:32.942629+00:00 172.20.1.118 elev-18 sparbarhet[11157] jag-later-som-elev-99 test-sortering-elev18
   ```
 
 ### 5.3 Lagringstid och rotation (lokalt respektive centralt)
-* **Beskrivning:** `[Hur länge sparas loggarna lokalt innan de roteras/skrivs över, och hur hanteras de centralt?]`
+* **Beskrivning:** Hur länge sparas loggarna lokalt innan de roteras/skrivs över, och hur hanteras de centralt?
 * **Belägg:** 
+  ```bash
+  $ cat /etc/logrotate.d/rsyslog
+  $ grep -i storage /etc/systemd/journald.conf
+  $ sudo grep -i max_log_file /etc/audit/auditd.conf
+  ```
+
   ```text
-  [Klistra in relevanta rader från /etc/logrotate.conf, /etc/logrotate.d/rsyslog, /etc/systemd/journald.conf och /etc/audit/auditd.conf]
+  # rsyslog
+  /var/log/cron
+  /var/log/maillog
+  /var/log/messages
+  /var/log/secure
+  /var/log/spooler
+  {
+    missingok
+    sharedscripts
+    postrotate
+        /usr/bin/systemctl -s HUP kill rsyslog.service >/dev/null 2>&1 || true
+    endscript
+  }
+  # grep -i storage
+  #Storage=auto
+
+  # sudo grep i- max_log_file
+  max_log_file = 8
+  max_log_file_action = ROTATE
   ```
 
 ### 5.4 Vad händer när mottagaren är onåbar?
-* **Beskrivning:** `[Hur är rsyslogs kö konfigurerad? Används minneskö eller diskstödd kö (queue.type, queue.filename)? Vad är maxgränsen (queue.maxDiskSpace) och vad händer när gränsen nås eller rsyslog startas om?]`
-* **Belägg:** 
+* **Beskrivning:** Hur är rsyslogs kö konfigurerad? Används minneskö eller diskstödd kö (queue.type, queue.filename)? Vad är maxgränsen (queue.maxDiskSpace) och vad händer när gränsen nås eller rsyslog startas om?
+* **Belägg:** `cat /etc/rsyslog.d/90-logg.conf`,`sudo ls -la /var/lib/rsyslog`
   ```text
-  [Klistra in er action()-konfiguration från /etc/rsyslog.d/ samt ev. ls -la /var/lib/rsyslog]
+  # 90-logg.conf
+  global(DefaultNetstreamDriverCAFile="/etc/pki/rsyslog/ca.pem")
+  action(type="omfwd" target="172.20.1.58" port="6514" protocol="tcp"
+        template="RSYSLOG_SyslogProtocol23Format"
+        StreamDriver="gtls" StreamDriverMode="1" StreamDriverAuthMode="x509/name"
+        StreamDriverPermittedPeers="log.sec.chas-lab.dev"
+        queue.type="LinkedList" queue.filename="fwd" queue.saveOnShutdown="on"
+        action.resumeRetryCount="-1")
+  
+  # rsyslog
+  total 744
+  drwx------.  2 root root   4096 Nov 25 09:58 .
+  drwxr-xr-x. 30 root root   4096 Nov 17 10:58 ..
+  -rw-------.  1 root root 747631 Nov 19 11:08 fwd.00000001
+  -rw-------.  1 root root    124 Nov 25 09:58 imjournal.state
   ```
 
 ### 5.5 Scenario: Bevismaterial vid komprometterad server
 * **Scenario:** En angripare lyckas få `root`-behörighet på en av teamets servrar (`elev-XX`) och försöker dölja sina spår genom att redigera eller radera lokala loggfiler i `/var/log/`, stoppa `rsyslog` eller manipulera systemklockan.
-* **Vad angriparen kan förstöra:** `[Beskriv vad som går förlorat lokalt och vad som händer med loggar som ännu inte hunnit skickas.]`
-* **Vad loggkedjan fångar ändå:** `[Beskriv vad som redan finns säkrat på den centrala loggservern, hur loggserverns egen mottagningstid (UTC) och käll-IP avslöjar manipulation, samt hur avbrott i loggströmmen i sig blir en indikator.]`
+* **Vad angriparen kan förstöra:** Angriparen kan ta bort och ändra lokala filer men datan som skickas över TLS till centrala loggsevern kan inte ändras.
+* **Vad loggkedjan fångar ändå:** Om angriparen stoppar loggar från att komma över till den centrala loggserven så märks det av både på servern och Wazuh. Trafiken försvinner och ett larm kan skapas.
