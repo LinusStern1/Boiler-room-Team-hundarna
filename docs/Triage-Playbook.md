@@ -16,15 +16,15 @@
 ### Fas 1. Förberedelse (ska vara sant *före* ett larm)
 - [ ] Monitorn är *Enabled* i Alerting.
 - [ ] Loggkällan syns i Discover (`location`, index `wazuh-alerts-*`).
-- [ ] Normal träffmängd är känd: 30 per 24 timmar (från brusmätningen).
+- [ ] Normal träffmängd är känd: ~50 per 24 timmar (från brusmätningen). ![Bilaga](Bilagor/WazuhBas.png)
 - [ ] Kända legitima källor: jump 172.20.1.2, ctf 172.20.1.10
-- [ ] Du har åtkomst till: Wazuh, jump.
+- [ ] Du har åtkomst till: Wazuh, jump, elev-XX.
 
 ### Fas 2. Detektion och analys
 1. Notera larmets tid (UTC), `rule.id`, `data.srcip` och `location`.
 2. Sök: `location: *elev-18* and rule.id: (5710 or 5712)`, tidsfönster senaste 15 minuterna.
 3. Sök utan värdfilter på källan: `data.srcip: <ip>`. Berörs fler servrar eller konton?
-4. Jämför källan med flödestabellen (D1/D2) och baslinjen (30 försök/24h är normalt). 
+4. Jämför källan med flödestabellen (D1/D2) och baslinjen (~50 försök/24h är normalt). 
    - Är den 172.20.1.2 (jump) eller 172.20.1.10 (ctf)? Då är det troligen förväntad aktivitet.
 5. Kontrollera om något följde efter: `data.srcip: <ip> and rule.id: (5715 or 40112)`.
    - (lyckad inloggning). Larmar det, eskalera omedelbart oavsett källa.
