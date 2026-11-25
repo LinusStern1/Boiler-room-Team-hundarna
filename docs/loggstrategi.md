@@ -2,7 +2,7 @@
 **Servrar som omfattas:** elev-18, elev-23, elev-31, elev-41
 **Central loggserver:** `log.sec.chas-lab.dev` (`172.20.1.58`, TCP 6514 TLS)  
 
->Denna filen är under konstruktion.
+>V1.0
 ---
 
 ## 1. Syfte och mål med centralloggningen
