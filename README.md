@@ -5,6 +5,9 @@
 <!-- TREE:START -->
 ```text
 ├── docs/
+│   ├── Bilagor/
+│   │   ├── WazuhBas.png
+│   │   └── WazuhTriageT2.png
 │   ├── CSV/
 │   │   └── testfall.csv
 │   ├── vecka-7-simon/
