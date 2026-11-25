@@ -38,7 +38,9 @@ exit $fel
 ## Omstarta test
 
 Innan omstart kördes skriptet `uptime -s` 2026-11-23 09:26:41
+
 Samtliga sju kontrollerna gav Gäller.
 
 Efter omstart kördes skriptet `uptime -s` 2026-11-25 08:46:38
+
 Samtliga sju kontrollerna gav Gäller.
