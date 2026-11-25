@@ -19,7 +19,6 @@
 │   ├── baslinje.md
 │   ├── ChecklistaZeroTrust.md
 │   ├── contract.md
-│   ├── hardning_selinux.md
 │   ├── Detektioner.md
 │   ├── hardning_selinux.md
 │   ├── loggstrategi.md
