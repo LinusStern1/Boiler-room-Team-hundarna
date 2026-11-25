@@ -1,0 +1,137 @@
+
+## <summary>policy for zonvakt</summary>
+
+########################################
+## <summary>
+##	Execute zonvakt_exec_t in the zonvakt domain.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`zonvakt_domtrans',`
+	gen_require(`
+		type zonvakt_t, zonvakt_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	domtrans_pattern($1, zonvakt_exec_t, zonvakt_t)
+')
+
+######################################
+## <summary>
+##	Execute zonvakt in the caller domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`zonvakt_exec',`
+	gen_require(`
+		type zonvakt_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	can_exec($1, zonvakt_exec_t)
+')
+########################################
+## <summary>
+##	Read zonvakt's log files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`zonvakt_read_log',`
+	gen_require(`
+		type zonvakt_log_t;
+	')
+
+	logging_search_logs($1)
+	read_files_pattern($1, zonvakt_log_t, zonvakt_log_t)
+')
+
+########################################
+## <summary>
+##	Append to zonvakt log files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`zonvakt_append_log',`
+	gen_require(`
+		type zonvakt_log_t;
+	')
+
+	logging_search_logs($1)
+	append_files_pattern($1, zonvakt_log_t, zonvakt_log_t)
+')
+
+########################################
+## <summary>
+##	Manage zonvakt log files
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`zonvakt_manage_log',`
+	gen_require(`
+		type zonvakt_log_t;
+	')
+
+	logging_search_logs($1)
+	manage_dirs_pattern($1, zonvakt_log_t, zonvakt_log_t)
+	manage_files_pattern($1, zonvakt_log_t, zonvakt_log_t)
+	manage_lnk_files_pattern($1, zonvakt_log_t, zonvakt_log_t)
+')
+
+########################################
+## <summary>
+##	All of the rules required to administrate
+##	an zonvakt environment
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	Role allowed access.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`zonvakt_admin',`
+	gen_require(`
+		type zonvakt_t;
+		type zonvakt_log_t;
+	')
+
+	allow $1 zonvakt_t:process { signal_perms };
+	ps_process_pattern($1, zonvakt_t)
+
+    tunable_policy(`deny_ptrace',`',`
+        allow $1 zonvakt_t:process ptrace;
+    ')
+
+	logging_search_logs($1)
+	admin_pattern($1, zonvakt_log_t)
+	optional_policy(`
+		systemd_passwd_agent_exec($1)
+		systemd_read_fifo_file_passwd_run($1)
+	')
+')

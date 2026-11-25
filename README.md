@@ -5,14 +5,28 @@
 <!-- TREE:START -->
 ```text
 ├── docs/
+│   ├── Bilagor/
+│   │   ├── WazuhBas.png
+│   │   └── WazuhTriageT2.png
+│   ├── CSV/
+│   │   └── testfall.csv
+│   ├── vecka-7-simon/
+│   │   ├── zonvakt.fc
+│   │   ├── zonvakt.if
+│   │   └── zonvakt.te
 │   ├── Adressplan.md
 │   ├── AI-Användning.md
 │   ├── baslinje.md
 │   ├── ChecklistaZeroTrust.md
 │   ├── contract.md
 │   ├── hardning_selinux.md
+│   ├── Detektioner.md
+│   ├── hardning_selinux.md
+│   ├── loggstrategi.md
 │   ├── Testing.md
 │   ├── Tillgångsförtäkning.md
+│   ├── Triage-Playbook.md
+│   ├── Triage.md
 │   └── Zoner.md
 ├── eMudhra/
 │   ├── Ibrahim.md
@@ -20,11 +34,21 @@
 │   └── Simon.md
 ├── script/
 │   ├── check_server.sh
+│   ├── t1110Tester.sh
+│   ├── testfall.sh
+│   ├── txtDecoder.sh
 │   └── verifiera-hardning.sh
 ├── baslinje.pcap
 └── README.md
 ```
 <!-- TREE:END -->
+## Medlemmar
+```text
+Simon elev-18
+Linus elev-41
+Ibrahim elev-23
+Mohammed elev-31 
+```
 
 ## Adressplan
 
