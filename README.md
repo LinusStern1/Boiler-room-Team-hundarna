@@ -14,6 +14,8 @@
 │   │   ├── zonvakt.fc
 │   │   ├── zonvakt.if
 │   │   └── zonvakt.te
+│   ├── vecka-8-simon/
+│   │   └── U8-X.md
 │   ├── Adressplan.md
 │   ├── AI-Användning.md
 │   ├── baslinje.md
